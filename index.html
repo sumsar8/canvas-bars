@@ -10,9 +10,26 @@
                 margin: 0;
                 overflow: hidden;
             }
+            .topbar {
+                padding: 2px;
+                height: 22px;
+                width: 100vw;
+                background-color: rgb(172, 30, 30);
+            }
+            #insertionbutton {
+                display: none;
+            }
         </style>
     </head>
     <body>
+        <div class="topbar">
+            <button id="generatebutton" onclick="CreateBars()">
+                CreateBars
+            </button>
+            <button id="insertionbutton" onclick="InsertionSort(array)">
+                InsertionSort
+            </button>
+        </div>
         <canvas id="canvas"></canvas>
     </body>
     <script src="js.js"></script>

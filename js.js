@@ -11,9 +11,14 @@ ctx.scale(scale, scale);
 let array = [];
 
 function getRandom() {
-    return Math.floor(Math.random() * (13 - 1 + 1)) + 1;
+    return Math.floor(Math.random() * (12 - 1 + 1)) + 1;
 }
 function CreateBars() {
+    document.getElementById("generatebutton").style.display = "none";
+    setTimeout(() => {
+        document.getElementById("insertionbutton").style.display = "block";
+    }, 27 * 60);
+
     for (let i = 0; i < 27; i++) {
         setTimeout(function timer() {
             array.push(getRandom());
@@ -24,7 +29,7 @@ function CreateBars() {
 }
 
 console.log(array);
-CreateBars();
+
 function DrawBars() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -33,7 +38,7 @@ function DrawBars() {
         ctx.fillRect(60 * i, 0, 50, 70 * array[i]);
     }
 }
-function insertionSort(array) {
+function InsertionSort(array) {
     let n = array.length;
     for (let i = 1; i < n; i++) {
         let current = array[i];
@@ -47,6 +52,3 @@ function insertionSort(array) {
     }
     return array;
 }
-setTimeout(() => {
-    console.log(insertionSort(array));
-}, 4000);
