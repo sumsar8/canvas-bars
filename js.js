@@ -11,7 +11,7 @@ ctx.scale(scale, scale);
 const BarAmount = 128;
 const BarHeight = 4.6;
 const CreateBarsTime = 10;
-const SortBarsTime = 6;
+let SortBarsTime = 1;
 
 let array = [];
 
@@ -31,6 +31,7 @@ function CreateBars() {
 
     setTimeout(() => {
         document.getElementById("sortbutton1").style.display = "block";
+        document.getElementById("sortbutton2").style.display = "block";
     }, CreateBarsTime * BarAmount);
 
     for (let i = 0; i < BarAmount; i++) {
@@ -62,6 +63,7 @@ async function InsertionSort(array) {
         while (j > -1 && current < array[j]) {
             array[j + 1] = array[j];
             j--;
+            SortBarsTime -= 0.002;
             DrawBars();
             await timer(SortBarsTime);
         }
@@ -79,3 +81,48 @@ function Reset() {
     document.getElementById("sortbutton1").style.display = "none";
     document.getElementById("sortbutton2").style.display = "none";
 }
+function swap(array, leftIndex, rightIndex) {
+    var temp = array[leftIndex];
+    array[leftIndex] = array[rightIndex];
+    array[rightIndex] = temp;
+}
+function partition(array, left, right) {
+    var pivot = array[Math.floor((right + left) / 2)], //middle element
+        i = left, //left pointer
+        j = right; //right pointer
+    while (i <= j) {
+        while (array[i] < pivot) {
+            i++;
+        }
+        while (array[j] > pivot) {
+            j--;
+        }
+        if (i <= j) {
+            swap(array, i, j); //sawpping two elements
+            i++;
+            j--;
+        }
+    }
+    return i;
+}
+
+async function QuickSort(array, left, right) {
+    var index;
+    await timer(8);
+    DrawBars();
+    if (array.length > 1) {
+        index = partition(array, left, right); //index returned from partition
+        if (left < index - 1) {
+            //more elements on the left side of the pivot
+            QuickSort(array, left, index - 1);
+        }
+        if (index < right) {
+            //more elements on the right side of the pivot
+            QuickSort(array, index, right);
+        }
+    }
+    console.log(array); //prints [2,3,5,6,7,9]
+
+    return array;
+}
+// first call to quick sort

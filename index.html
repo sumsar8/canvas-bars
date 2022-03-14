@@ -24,16 +24,25 @@
             #sortbutton2 {
                 display: none;
             }
+            .container {
+                display: flex;
+            }
         </style>
     </head>
     <body>
         <div class="topbar">
-            <div>
+            <div class="container">
                 <button id="generatebutton" onclick="CreateBars()">
                     CreateBars
                 </button>
                 <button id="sortbutton1" onclick="InsertionSort(array)">
                     InsertionSort
+                </button>
+                <button
+                    id="sortbutton2"
+                    onclick="QuickSort(array, 0, array.length - 1)"
+                >
+                    SlowSort
                 </button>
             </div>
 
