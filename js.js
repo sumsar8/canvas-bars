@@ -8,11 +8,12 @@ var scale = window.devicePixelRatio;
 canvas.width = Math.floor(size * scale);
 canvas.height = Math.floor(size * scale);
 ctx.scale(scale, scale);
-const BarAmount = 128;
+const BarAmount = 100;
 const BarHeight = 4.6;
 const CreateBarsTime = 10;
 let SortBarsTime = 1;
-
+let canvasheight = window.innerHeight - 26;
+let canvaswidth = window.innerWidth;
 let array = [];
 
 function getRandom() {
@@ -32,25 +33,28 @@ function CreateBars() {
     setTimeout(() => {
         document.getElementById("sortbutton1").style.display = "block";
         document.getElementById("sortbutton2").style.display = "block";
+        console.table(array);
     }, CreateBarsTime * BarAmount);
 
     for (let i = 0; i < BarAmount; i++) {
         setTimeout(function timer() {
             array.push(getRandom());
-            console.log(i);
             DrawBars();
         }, i * CreateBarsTime);
     }
 }
-
-console.log(array);
 
 function DrawBars() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     for (let i = 0; i < array.length; i++) {
         ctx.fillStyle = "#bada55";
-        ctx.fillRect(10 * i, 0, 10, BarHeight * array[i]);
+        ctx.fillRect(
+            13 * i,
+            0,
+            canvaswidth / 100,
+            (canvasheight / BarHeight) * array[i] * 0.046
+        );
     }
 }
 const timer = (ms) => new Promise((res) => setTimeout(res, ms));
@@ -70,8 +74,19 @@ async function InsertionSort(array) {
         array[j + 1] = current;
     }
     DrawBars();
-
-    return array;
+    DrawBarsFinished();
+}
+async function DrawBarsFinished() {
+    for (let i = 0; i < array.length; i++) {
+        await timer(10);
+        ctx.fillStyle = "#e31102";
+        ctx.fillRect(
+            13 * i,
+            0,
+            canvaswidth / 100,
+            (canvasheight / BarHeight) * array[i] * 0.046
+        );
+    }
 }
 function MergeSort() {}
 function Reset() {
@@ -121,7 +136,6 @@ async function QuickSort(array, left, right) {
             QuickSort(array, index, right);
         }
     }
-    console.log(array); //prints [2,3,5,6,7,9]
 
     return array;
 }
