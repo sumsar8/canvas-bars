@@ -32,7 +32,6 @@ function CreateBars() {
 
     setTimeout(() => {
         document.getElementById("sortbutton1").style.display = "block";
-        document.getElementById("sortbutton2").style.display = "block";
         console.table(array);
     }, CreateBarsTime * BarAmount);
 
